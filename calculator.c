@@ -1,14 +1,61 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<math.h>
 
-int main(int argc, char *argv[]){
+#define PI acos(-1.0)
 
+//Compile with: gcc -o calculator calculator.c -lm
+
+int main(){
+
+	int class;
 	float num1, num2, ans;
-	char op, choice;
+	char op, sop[4], choice;
 
 restart:
-	printf("Enter calculation: ");
+	printf("Enter 1 for single number calculations and 2 for 2 number calculations: ");
+	scanf("%d",&class);
+	getchar();
+
+	if(class == 1){
+		goto single;
+	}
+	else{
+		goto multi;
+	}
+
+single:
+	printf("Operations: sqrt , sin , cos , tan \n");
+	printf("Use degrees for trigonometric operations.\n");
+	printf("Enter calculation (format: operation number): ");
+	scanf("%s %f",&sop,&num1);
+	getchar();
+
+	float rad = num1 * PI / 180;;
+
+	if(strcmp(sop, "sqrt") == 0){
+		ans = sqrt(num1);
+	}
+	else if(strcmp(sop, "sin") == 0){
+		ans = sin(rad);
+	}
+	else if(strcmp(sop, "cos") == 0){
+		ans = cos(rad);
+	}
+	else if(strcmp(sop, "tan") == 0){
+		ans = tan(rad);
+	}
+	else{
+		goto fail;
+	}
+	
+	printf("%s(%.2f) = %.2f\n",sop,num1,ans);
+	goto check;
+
+multi:
+	printf("Operations: + , - , * , / , % , ^ \n");
+	printf("Enter calculation (format: numberOne operation numberTwo): ");
 	scanf("%f %c %f",&num1,&op,&num2);
 	getchar();
 
@@ -41,7 +88,7 @@ restart:
 	goto check;
 
 fail:
-	printf("Calculation failed.");
+	printf("Calculation failed.\n");
 	goto check;
 
 check:
