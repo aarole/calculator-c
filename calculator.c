@@ -21,8 +21,11 @@ restart:
 	if(class == 1){
 		goto single;
 	}
-	else{
+	else if(class == 2){
 		goto multi;
+	}
+	else{
+		goto fail;
 	}
 
 single:
